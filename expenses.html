@@ -33,13 +33,31 @@
       <input type="text" class="form-control" id="amount" placeholder="$$$">
       <label for="floatingInput">Amount in PLN</label>
     </div>
+
     <div class="form-floating">
-      <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-      <label for="floatingPassword">Password</label>
+      <input type="date" class="form-control" id="date" placeholder="Date">
+      <label for="date">Date</label>
     </div>
+
+    <div class="form-floating">
+      <select class="form-select" id="category" aria-label="Select Category">
+        <option selected>Select Category</option>
+        <option value="food">Food</option>
+        <option value="transport">Transport</option>
+        <option value="housing">House</option>
+        <option value="entertainment">Entertainment</option>
+      </select>
+      <label for="category">Expense Category</label>
+    </div>
+
+    <div class="form-floating">
+      <textarea class="form-control" placeholder="Leave a comment here" id="comment"></textarea>
+      <label for="comment">Comment</label>
+    </div>
+
     <div class="buttons d-flex justify-content-between ">
      <button class="btn btn-primary py-2" type="submit">Add expense</button>
-     <button class="btn btn-primary py-2" type="submit">Clear</button>
+     <button class="btn btn-primary py-2" type="reset">Clear</button> 
     </div>
   </form>
 </main>
@@ -47,7 +65,6 @@
 
 <script src="/docs/5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="script.js"></script>
-
 
 </body>
 
