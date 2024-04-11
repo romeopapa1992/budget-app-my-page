@@ -1,0 +1,13 @@
+body {
+    background-image: url("./resources/image-budget.png");
+    background-size: 100% 100%;
+}
+
+main {
+    background-color: aliceblue;
+    border-radius: 0.75rem;
+}
+
+footer {
+    background-color: aliceblue;
+}
