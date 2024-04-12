@@ -1,6 +1,6 @@
 body {
     background-image: url("./resources/image-budget.png");
-    background-size: 100% 100%;
+    background-size: 120% 100%;
 }
 
 main {
@@ -8,6 +8,25 @@ main {
     border-radius: 0.75rem;
 }
 
-footer {
-    background-color: aliceblue;
-}
+.inner {
+    background: linear-gradient(300deg, #055508, #f1f9f2, #72ef87);
+    background-size: 180% 180%;
+    animation: gradient-animation 18s ease infinite;
+  }
+  
+  @keyframes gradient-animation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  .custom-btn {
+    background-color: black;
+    color: white; /* Jeśli chcesz, aby tekst był biały */
+  }
