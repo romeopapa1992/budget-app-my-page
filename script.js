@@ -1,5 +1,5 @@
-    const periodSelect = document.getElementById('period');
-    const customDateRange = document.getElementById('custom-date-range');
+const periodSelect = document.getElementById('period');
+const customDateRange = document.getElementById('custom-date-range');
 
     periodSelect.addEventListener('change', (event) => {
       if (event.target.value === 'custom') {
@@ -9,27 +9,24 @@
       }
     });
 
-    google.charts.load('current', {'packages':['corechart']});
-    google.charts.setOnLoadCallback(drawChart);
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
     
-    // Draw the chart and set the chart values
-    function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Task', 'Amount'],
-          ['Food', 100],
-          ['Transport', 50],
-          ['House', 300],
-          ['Shopping', 200],
-          ['Entertaiment', 80],
-        ]);
+function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Task', 'Amount'],
+      ['Food', 100],
+      ['Transport', 50],
+      ['House', 300],
+      ['Shopping', 200],
+      ['Entertaiment', 80],
+    ]);
       
-        // Optional; add a title and set the width and height of the chart
-        var options = {'width':550, 'height':400};
+    var options = {'width':550, 'height':400};
       
-        // Display the chart inside the <div> element with id="piechart"
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-        chart.draw(data, options);
-      }
+    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+      chart.draw(data, options);
+}
 
 google.charts.load('current', {'packages':['table']});
 google.charts.setOnLoadCallback(drawTable);

@@ -6,12 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="./home.css">
 </head>
 
 <body class="d-flex h-100 text-center">
 <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-    <nav class="navbar navbar-expand-lg navbar-light bg-none mb-auto">
+    <nav class="navbar navbar-expand-lg navbar-light bg-none">
         <div class="container-fluid">
           <a class="btn btn-lg btn-secondary custom-btn" href="./index.html">Home</a>
           <button id="navbar-toggler" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav"
@@ -26,44 +27,44 @@
         </div>
       </nav>
 <main class="form-signin m-auto">
-  <form>
-    <h1 class="h3 mb-3 fw-normal">Enter expense data</h1>
+  <form class="p-3 mx-2">
+    <h1 class="h3 mb-3 fw-bold">Enter expense data</h1>
 
-    <div class="form-floating">
+    <div class="form-floating my-2">
       <input type="text" class="form-control" id="amount" placeholder="$$$">
       <label for="floatingInput">Amount in PLN</label>
     </div>
 
-    <div class="form-floating">
+    <div class="form-floating my-2">
       <input type="date" class="form-control" id="date" placeholder="Date">
       <label for="date">Date</label>
     </div>
 
-    <div class="form-floating">
+    <div class="form-floating my-2">
       <select class="form-select" id="category" aria-label="Select Category">
         <option selected>Select Category</option>
         <option value="food">Food</option>
         <option value="transport">Transport</option>
         <option value="housing">House</option>
+        <option value="housing">Shopping</option>
         <option value="entertainment">Entertainment</option>
       </select>
       <label for="category">Expense Category</label>
     </div>
 
-    <div class="form-floating">
+    <div class="form-floating my-2">
       <textarea class="form-control" placeholder="Leave a comment here" id="comment"></textarea>
       <label for="comment">Comment</label>
     </div>
 
     <div class="buttons d-flex justify-content-between ">
-     <button class="btn btn-primary py-2" type="submit">Add expense</button>
-     <button class="btn btn-primary py-2" type="reset">Clear</button> 
+     <button class="btn btn-secondary btn-lg custom-btn py-2" type="submit">Add</button>
+     <button class="btn btn-secondary btn-lg custom-btn py-2" type="reset">Clear</button> 
     </div>
   </form>
 </main>
 </div>
 
-<script src="/docs/5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="script.js"></script>
 
 </body>
