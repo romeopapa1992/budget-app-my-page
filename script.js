@@ -1,13 +1,12 @@
-const periodSelect = document.getElementById('period');
-const customDateRange = document.getElementById('custom-date-range');
-
-    periodSelect.addEventListener('change', (event) => {
-      if (event.target.value === 'custom') {
-        customDateRange.classList.remove('d-none'); 
-      } else {
-        customDateRange.classList.add('d-none'); 
-      }
-    });
+$(document).ready(function() {
+  $('#period').change(function() {
+    if ($(this).val() === 'custom') {
+      $('#custom-date-range').removeClass('d-none');
+    } else {
+      $('#custom-date-range').addClass('d-none');
+    }
+  });
+});
 
 google.charts.load('current', {'packages':['corechart']});
 google.charts.setOnLoadCallback(drawChart);
