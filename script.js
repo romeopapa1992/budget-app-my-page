@@ -21,7 +21,7 @@ function drawChart() {
       ['Entertaiment', 80],
     ]);
       
-    var options = {'width':550, 'height':400};
+    var options = {'title':'Expenses piechart', 'width':550, 'height':400};
       
     var chart = new google.visualization.PieChart(document.getElementById('piechart'));
       chart.draw(data, options);
