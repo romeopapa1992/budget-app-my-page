@@ -20,34 +20,32 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
-            <div class="navbar-nav ms-auto">
-              <a class="btn btn-lg btn-secondary custom-btn" href="signin.html">Sign In</a>
-            </div>
           </div>
         </div>
       </nav>
 <main class="form-signin m-auto">
-  <form class="p-3 mx-2">
+  <form class="p-3 mx-2" action="registration.php" method="post">
     <h1 class="h3 mb-3 fw-bold ">Please sign up</h1>
     <div class="form-floating my-2">
-        <input type="text" class="form-control" id="floatingName" placeholder="First Name">
+        <input type="text" class="form-control" id="floatingName" name="first_name" placeholder="First Name">
         <label for="floatingInput">First Name</label>
-      </div>
-      <div class="form-floating my-2">
-        <input type="text" class="form-control" id="floatingSurname" placeholder="Last Name">
-        <label for="floatingPassword">Last Name</label>
-      </div>
-    <div class="form-floating my-2">
-      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-      <label for="floatingInput">Email address</label>
     </div>
     <div class="form-floating my-2">
-      <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-      <label for="floatingPassword">Password</label>
+        <input type="text" class="form-control" id="floatingSurname" name="last_name" placeholder="Last Name">
+        <label for="floatingPassword">Last Name</label>
+    </div>
+    <div class="form-floating my-2">
+        <input type="email" class="form-control" id="floatingInput" name="email" placeholder="name@example.com">
+        <label for="floatingInput">Email address</label>
+    </div>
+    <div class="form-floating my-2">
+        <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password">
+        <label for="floatingPassword">Password</label>
     </div>
 
-    <button class="btn btn-secondary btn-lg custom-btn w-100 " type="submit">Sign up</button>
-  </form>
+    <button class="btn btn-secondary btn-lg custom-btn w-100" type="submit">Sign up</button>
+</form>
+
 </main>
 </div>
 

@@ -29,7 +29,9 @@ main {
  .custom-btn {
     background-color: black;
     color: white; 
+    margin-right: 10px;
   }
+
 
   .form-control:focus,
   .form-check-input:focus,
@@ -38,7 +40,7 @@ main {
     box-shadow: 0 0 0 0.25rem rgba(135, 136, 133, 0.25); 
   }
 
-  .form-check-input[type="checkbox"]:checked {
+.form-check-input[type="checkbox"]:checked {
     background-color: black; 
     border: none;
 }
