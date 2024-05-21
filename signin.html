@@ -24,15 +24,15 @@
         </div>
       </nav>
 <main class="form-signin m-auto">
-  <form class="p-3 mx-2">
+  <form class="p-3 mx-2" action="signin.php" method="post">
     <h1 class="h3 mb-3 fw-bold">Sign in</h1>
 
     <div class="form-floating my-2">
-        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+        <input type="email" class="form-control" id="floatingInput" name="email" placeholder="name@example.com">
         <label for="floatingInput">Email address</label>
     </div>
     <div class="form-floating my-2">
-      <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+      <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password">
       <label for="floatingPassword">Password</label>
     </div>
 
