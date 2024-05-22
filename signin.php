@@ -27,7 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($user && password_verify($password, $user['password'])) {
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['first_name'] = $user['first_name'];
-        echo 'Logowanie zakończone sukcesem! Witaj, ' . htmlspecialchars($user['first_name']) . '!';
+        //echo 'Logowanie zakończone sukcesem! Witaj, ' . htmlspecialchars($user['first_name']) . '!';
+        header('Location: balance.html');
     } else {
         echo 'Nieprawidłowy email lub hasło!';
     }
