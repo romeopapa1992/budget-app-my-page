@@ -53,3 +53,7 @@ main {
 .table, .chart {
   border-radius: 0.75rem;
 }
+
+.not-logged-in {
+  background-color: #ffcccc; /* czerwone tło */
+}

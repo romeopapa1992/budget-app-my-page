@@ -3,12 +3,9 @@ session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    echo "Formularz został wysłany.<br>";
-    echo "Email: " . htmlspecialchars($_POST['email']) . "<br>";
-    echo "Password: " . htmlspecialchars($_POST['password']) . "<br>";
-
     $email = $_POST['email'];
     $password = $_POST['password'];
+    $remember_me = isset($_POST['remember_me']);
 
     if (empty($email) || empty($password)) {
         echo 'Wszystkie pola są wymagane!';
@@ -27,8 +24,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($user && password_verify($password, $user['password'])) {
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['first_name'] = $user['first_name'];
-        //echo 'Logowanie zakończone sukcesem! Witaj, ' . htmlspecialchars($user['first_name']) . '!';
-        header('Location: balance.html');
+
+        if ($remember_me) {
+            setcookie('user_id', $user['id'], time() + (86400 * 30), "/"); // 30 dni
+            setcookie('user_name', $user['first_name'], time() + (86400 * 30), "/");
+            echo "Setting cookies"; // Debugging message
+        }
+
+       header('Location: balance.html');
+       exit();
     } else {
         echo 'Nieprawidłowy email lub hasło!';
     }
@@ -36,5 +40,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     header('Location: signin.html');
     exit();
 }
-
 ?>

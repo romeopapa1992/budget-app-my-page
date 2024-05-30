@@ -1,15 +1,9 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['user_id'])) {
-    echo 'Musisz być zalogowany, aby zobaczyć bilans.';
-    exit();
-}
-
 $user_id = $_SESSION['user_id'];
 $period = isset($_POST['period']) ? trim($_POST['period']) : 'current_month';
 $startDate = isset($_POST['startDate']) ? trim($_POST['startDate']) : '';
-$endDate = isset($_POST['endDate']) ? trim($_POST['endDate']) : '';
 
 // Ustalenie zakresu dat na podstawie wybranego okresu
 if ($period == 'current_month') {
