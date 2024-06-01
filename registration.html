@@ -29,18 +29,26 @@
     <div class="form-floating my-2">
         <input type="text" class="form-control" id="floatingName" name="first_name" placeholder="First Name">
         <label for="floatingInput">First Name</label>
+        <p class="error-text">First name cannot be empty</p>
+        <img src="./resources/icon-error.svg" class="error-icon" alt="icon error">
     </div>
     <div class="form-floating my-2">
         <input type="text" class="form-control" id="floatingSurname" name="last_name" placeholder="Last Name">
         <label for="floatingPassword">Last Name</label>
+        <p class="error-text">Last name cannot be empty</p>
+        <img src="./resources/icon-error.svg" class="error-icon" alt="icon error">
     </div>
     <div class="form-floating my-2">
-        <input type="email" class="form-control" id="floatingInput" name="email" placeholder="name@example.com">
-        <label for="floatingInput">Email address</label>
+        <input type="email" class="form-control" id="floatingEmail" name="email" placeholder="name@example.com">
+        <label for="floatingEmail">Email address</label>
+        <p class="error-text">Email address cannot be empty</p>
+        <img src="./resources/icon-error.svg" class="error-icon" alt="icon error">
     </div>
     <div class="form-floating my-2">
         <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password">
         <label for="floatingPassword">Password</label>
+        <p class="error-text">Password cannot be empty</p>
+        <img src="./resources/icon-error.svg" class="error-icon" alt="icon error">
     </div>
 
     <button class="btn btn-secondary btn-lg custom-btn w-100" type="submit">Sign up</button>
@@ -48,7 +56,7 @@
 
 </main>
 </div>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="script.js"></script>
 
 

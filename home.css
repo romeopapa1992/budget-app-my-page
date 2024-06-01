@@ -54,6 +54,32 @@ main {
   border-radius: 0.75rem;
 }
 
-.not-logged-in {
-  background-color: #ffcccc; /* czerwone tło */
+.error-text {
+  display: none;
+	color: hsl(0, 100%, 74%);
+	text-align: right;
+	margin-top: 10px;
+	font-size: .8rem;
+	font-style: italic;
+	font-weight: 500;
 }
+
+input.error {
+	border: 2px solid hsl(0, 100%, 74%); 
+}
+
+.error-icon {
+	position: absolute;
+	top: 0;
+	right: 20px;
+	top: 28%;
+}
+
+input.error ~ img.error-icon,
+input.error ~ p.error-text {
+	display: block;
+  }
+
+  .error-text, img {
+    display: none;
+  }

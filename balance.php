@@ -4,6 +4,7 @@ session_start();
 $user_id = $_SESSION['user_id'];
 $period = isset($_POST['period']) ? trim($_POST['period']) : 'current_month';
 $startDate = isset($_POST['startDate']) ? trim($_POST['startDate']) : '';
+$endDate = isset($_POST['endDate']) ? trim($_POST['endDate']) : '';
 
 // Ustalenie zakresu dat na podstawie wybranego okresu
 if ($period == 'current_month') {
@@ -19,7 +20,7 @@ if ($period == 'current_month') {
     $start_date = $startDate;
     $end_date = $endDate;
 } else {
-    echo 'Nieprawidłowy okres czasu!';
+    echo json_encode(['error' => 'Nieprawidłowy okres czasu!']);
     exit();
 }
 
