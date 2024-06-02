@@ -20,6 +20,7 @@
           <div class="navbar-nav ms-auto">
             <a class="btn btn-lg btn-secondary custom-btn" href="incomes.html">Incomes</a>
             <a class="btn btn-lg btn-secondary custom-btn" href="expenses.html">Expenses</a>
+            <a class="btn btn-lg btn-secondary custom-btn" href="logout.php">Log out</a>
           </div>
         </div>
       </div>
@@ -36,27 +37,29 @@
           </select>
           <label for="period">Select period</label>
         </div>
-        <div class="d-none mb-3" id="custom-date-range"> 
+        <div class="d-none mb-3" id="custom-date-range">
           <label for="startDate">Start Date:</label>
           <input type="date" class="form-control" id="startDate">
+          <p class="error-text">Select start date for custom period.</p>
           <label for="endDate">End Date:</label>
           <input type="date" class="form-control" id="endDate">
+          <p class="error-text">Select end date for custom period.</p>
         </div>
         <div class="buttons d-flex justify-content-between">
           <button class="btn btn-secondary btn-lg custom-btn py-2" id="view-button" type="submit">View</button>
           <button class="btn btn-secondary btn-lg custom-btn py-2" id="clear-button" type="button">Clear</button>
         </div>
       </form>
-      <div id="balance-result" class="mt-3"></div>
+      <div class="balance-info d-none p-3 text-start" id="balance-info">
+        <h2 class="h3 mb-3 fw-bold">Balance Information</h2>
+        <p class="fw-bold" id="balance"></p>
+        <p class="fw-bold" id="total-income"></p>
+        <p class="fw-bold" id="total-expense"></p>
+      </div>
     </main>
-    <div class="charts d-flex flex-row justify-content-center mt-3">
-      <div class="mx-3" id="table_div"></div>
-      <div id="piechart"></div>
-    </div>
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://www.gstatic.com/charts/loader.js"></script>
   <script src="script.js"></script>
-
 </body>
 </html>

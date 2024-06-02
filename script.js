@@ -1,123 +1,195 @@
 $(document).ready(function() {
 
-    const signinForm = $("#signin-form");
-    const inputs = signinForm.find("input");
-  
-    signinForm.submit(function(event) {
-      event.preventDefault();
-      let hasError = false;
-  
-      inputs.each(function() {
-        const value = $(this).val().trim();
-        const errorElement = $(this).siblings(".error-text");
-  
-        if (value === "") {
-          $(this).addClass("error");
-          errorElement.show();
+  $("form").submit(function(event) {
+    event.preventDefault();
+    const form = $(this);
+    if (form.attr('action') === 'registration.php') {
+      validateAndSubmitForm(form, false);
+    } else if (form.attr('action') === 'signin.php') {
+      validateAndSubmitForm(form, true);
+    }
+  });
+
+  function validateAndSubmitForm(form, isLoginForm = false) {
+    const inputs = form.find("input");
+    let hasError = false;
+
+    inputs.each(function() {
+      const input = $(this);
+      const value = input.val().trim();
+      const errorElement = input.siblings(".error-text");
+      const inputType = input.attr('type');
+
+      if (value === "") {
+        showError(input, errorElement);
+        hasError = true;
+      } else {
+        if (!isLoginForm && inputType === 'password' && !validatePassword(value)) {
+          showError(input, errorElement);
+          hasError = true;
+        } else if (inputType === 'email' && !validateEmail(value)) {
+          showError(input, errorElement);
           hasError = true;
         } else {
-          $(this).removeClass("error");
-          errorElement.hide();
+          hideError(input, errorElement);
         }
-      });
-  
-      if (!hasError) {
-        $.ajax({
-          url: 'signin.php',
-          type: 'POST',
-          data: signinForm.serialize(),
-          dataType: 'json',
-          success: function(response) {
-            if (response.status === 'success') {
-              alert('Logowanie zakończone sukcesem!');
-              window.location.href = 'balance.html';
-            } else {
-              alert(response.message);
-            }
-          }
-        });
       }
     });
 
-    function isValidEmail(email) {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      return emailRegex.test(email);
+    if (!hasError) {
+      submitForm(form, isLoginForm);
     }
+  }
 
-     // Check if user is logged in on "Balance" link click
-     $('#balance-link').on('click', function(event) {
-        event.preventDefault(); // Prevent default link behavior
-    
-        $.ajax({
-          url: 'checkLoggedIn.php',
-          method: 'GET',
-          success: function(response) {
-            var data = JSON.parse(response);
-            if (!data.loggedIn) {
-              // Show modal instead of alert
-              var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {
-                keyboard: false
-              });
-              myModal.show();
-    
-              // Redirect after modal close
-              $('#exampleModal').on('hidden.bs.modal', function () {
-                window.location.href = 'signin.html';
-              });
-            } else {
-              // Redirect to balance.html
-              window.location.href = 'balance.html';
-            }
+  function validatePassword(password) {
+    const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^\da-zA-Z]).{8,}$/;
+    return passwordPattern.test(password);
+  }
+
+  function validateEmail(email) {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+  }
+
+  function showError(input, errorElement) {
+    input.addClass("error");
+    errorElement.show();
+  }
+
+  function hideError(input, errorElement) {
+    input.removeClass("error");
+    errorElement.hide();
+  }
+
+  function submitForm(form, isLoginForm) {
+    $.ajax({
+      url: form.attr('action'),
+      type: 'POST',
+      data: form.serialize(),
+      dataType: 'json',
+      success: function(response) {
+        if (response.status === 'success') {
+          if (isLoginForm) {
+            window.location.href = 'balance.html';
+          } else {
+            alert('Registration successful! You can now log in.');
+            window.location.href = 'signin.html';
           }
-        });
-      });
-    
-      // Toggle custom date range visibility on period change
-      $('#period').change(function() {
-        if ($(this).val() === 'custom') {
-          $('#custom-date-range').removeClass('d-none');
         } else {
-          $('#custom-date-range').addClass('d-none');
+          alert(response.message);
         }
-        // Clear the balance result when period is changed
-        $('#balance-result').html('');
-      });
-    
-      // Handle balance form submission and display results
-      $('#balance-form').submit(function(event) {
-        event.preventDefault();
-        var period = $('#period').val();
-        var startDate = $('#startDate').val();
-        var endDate = $('#endDate').val();
-    
-        if (period === 'custom' && (!startDate || !endDate)) {
-          alert('Please select both start and end dates for custom period.');
-          return;
-        }
-    
-        $.ajax({
-          url: 'balance.php',
-          method: 'POST',
-          data: { period: period, startDate: startDate, endDate: endDate },
-          success: function(response) {
-              var data = JSON.parse(response);
-              if (data.error) {
-                  alert(data.error);
-              } else {
-                  $('#balance-result').html(
-                      `Balance: ${data.balance}
-                      Total Income: ${data.income}
-                      Total Expense: ${data.expense}`
-                  );
-              }
-          }
-      });
+      }
+    });
+  }
+
+  $('#balance-link').on('click', function(event) {
+    event.preventDefault();
+    checkUserLoggedIn();
   });
-  
+
+  function checkUserLoggedIn() {
+    $.ajax({
+      url: 'checkLoggedIn.php',
+      method: 'GET',
+      success: function(response) {
+        const data = JSON.parse(response);
+        if (!data.loggedIn) {
+          showLoginModal();
+        } else {
+          window.location.href = 'balance.html';
+        }
+      },
+      error: function() {
+        alert('An error occurred while checking the login status.');
+      }
+    });
+  }
+
+  function showLoginModal() {
+    const myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {
+      keyboard: false
+    });
+    myModal.show();
+    $('#exampleModal').on('hidden.bs.modal', function() {
+      window.location.href = 'signin.html';
+    });
+  }
+
+  $('#period').change(function() {
+    toggleCustomDateRange($(this).val() === 'custom');
+    $('#balance-info').addClass('d-none'); 
+  });
+
+  function toggleCustomDateRange(show) {
+    $('#custom-date-range').toggleClass('d-none', !show);
+  }
+
+  $('#balance-form').submit(function(event) {
+    event.preventDefault();
+    handleBalanceFormSubmit();
+  });
+
+  function handleBalanceFormSubmit() {
+    const period = $('#period').val();
+    const startDate = $('#startDate').val();
+    const endDate = $('#endDate').val();
+
+    if (period === 'custom' && (!startDate || !endDate)) {
+      const errorElementStart = $('#startDate').siblings(".error-text");
+      const errorElementEnd = $('#endDate').siblings(".error-text");
+      
+      if (!startDate) {
+        showError($('#startDate'), errorElementStart);
+        hasError = true;
+      } else {
+        hideError($('#startDate'), errorElementStart);
+      }
+      
+      if (!endDate) {
+        showError($('#endDate'), errorElementEnd);
+        hasError = true;
+      } else {
+        hideError($('#endDate'), errorElementEnd);
+      }
+
+      //return;
+    }
+    
+
+    $.ajax({
+      url: 'balance.php',
+      method: 'POST',
+      data: { period, startDate, endDate },
+      success: function(response) {
+        const data = JSON.parse(response);
+        if (data.error) {
+          alert(data.error);
+        } else {
+          displayBalanceResult(data);
+        }
+      },
+      error: function(xhr, status, error) {
+        console.error('AJAX Error: ', error);
+        alert('An error occurred while fetching the balance.');
+      }
+    });
+  }
+
+  function displayBalanceResult(data) {
+    $('#balance').html(`Balance: ${parseFloat(data.balance).toFixed(2)} PLN`);
+    $('#total-income').html(`Total Income: ${parseFloat(data.income).toFixed(2)} PLN`);
+    $('#total-expense').html(`Total Expense: ${parseFloat(data.expense).toFixed(2)} PLN`);
+    $('#balance-info').removeClass('d-none');
+  }
+
   $('#clear-button').on('click', function() {
-      $('#balance-form')[0].reset();
-      $('#custom-date-range').addClass('d-none');
-      $('#balance-result').html('');
+    clearBalanceForm();
   });
-  
+
+  function clearBalanceForm() {
+    $('#balance-form')[0].reset();
+    $('#custom-date-range').addClass('d-none');
+    $('#balance-info').addClass('d-none');
+  }
+
 });

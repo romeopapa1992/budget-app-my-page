@@ -20,7 +20,6 @@ if ($period == 'current_month') {
     $start_date = $startDate;
     $end_date = $endDate;
 } else {
-    echo json_encode(['error' => 'Nieprawidłowy okres czasu!']);
     exit();
 }
 
@@ -33,7 +32,8 @@ $query->bindValue(':user_id', $user_id, PDO::PARAM_INT);
 $query->bindValue(':start_date', $start_date, PDO::PARAM_STR);
 $query->bindValue(':end_date', $end_date, PDO::PARAM_STR);
 $query->execute();
-$total_income = $query->fetch(PDO::FETCH_ASSOC)['total_income'];
+$total_income = $query->fetch(PDO::FETCH_ASSOC)['total_income'] ?? 0;
+$total_income = $total_income !== null ? $total_income : 0; // Dodatkowe sprawdzenie
 
 // Pobranie sumy wydatków
 $sql = 'SELECT SUM(amount) as total_expense FROM expenses WHERE user_id = :user_id AND date_of_expense BETWEEN :start_date AND :end_date';
@@ -42,7 +42,8 @@ $query->bindValue(':user_id', $user_id, PDO::PARAM_INT);
 $query->bindValue(':start_date', $start_date, PDO::PARAM_STR);
 $query->bindValue(':end_date', $end_date, PDO::PARAM_STR);
 $query->execute();
-$total_expense = $query->fetch(PDO::FETCH_ASSOC)['total_expense'];
+$total_expense = $query->fetch(PDO::FETCH_ASSOC)['total_expense'] ?? 0;
+$total_expense = $total_expense !== null ? $total_expense : 0; // Dodatkowe sprawdzenie
 
 $balance = $total_income - $total_expense;
 

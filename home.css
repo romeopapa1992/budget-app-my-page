@@ -3,15 +3,12 @@ body {
     background-size: 120% 100%;
 }
 
-main {
-    background-color: aliceblue;
-    border-radius: 0.75rem;
-}
 
-.inner, .form-signin {
+.inner, main {
     background: linear-gradient(300deg, #055508, #f1f9f2, #72ef87);
     background-size: 180% 180%;
     animation: gradient-animation 18s ease infinite;
+    border-radius: 0.75rem;
   }
   
   @keyframes gradient-animation {
@@ -34,24 +31,13 @@ main {
 
 
   .form-control:focus,
-  .form-check-input:focus,
   .form-select:focus {
     border-color: rgb(146, 136, 136); 
     box-shadow: 0 0 0 0.25rem rgba(135, 136, 133, 0.25); 
   }
 
-.form-check-input[type="checkbox"]:checked {
-    background-color: black; 
-    border: none;
-}
-
-
 .buttons button {
   width: 40%;
-}
-
-.table, .chart {
-  border-radius: 0.75rem;
 }
 
 .error-text {
@@ -80,6 +66,6 @@ input.error ~ p.error-text {
 	display: block;
   }
 
-  .error-text, img {
+.error-text, img {
     display: none;
-  }
+}
