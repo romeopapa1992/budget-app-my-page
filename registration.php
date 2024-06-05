@@ -11,7 +11,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     require_once 'database.php';
 
-    // Check if email already exists
     $sql_check = 'SELECT COUNT(*) FROM users WHERE email = :email';
     $query_check = $db->prepare($sql_check);
     $query_check->bindValue(':email', $email);

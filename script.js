@@ -7,8 +7,118 @@ $(document).ready(function() {
       validateAndSubmitForm(form, false);
     } else if (form.attr('action') === 'signin.php') {
       validateAndSubmitForm(form, true);
+    } else if (form.attr('action') === 'incomes.php') {
+      validateAndSubmitIncomeForm(form);
+    } else if (form.attr('action') === 'expenses.php') {
+      validateAndSubmitExpenseForm(form);
     }
   });
+
+  $('#floatingName, #floatingSurname, #floatingEmail, #floatingPassword, #signinEmail, #signinPassword').on('input', function() {
+    const input = $(this);
+    const errorElement = input.siblings('.error-text');
+    hideError(input, errorElement);
+  });
+
+  function validateAndSubmitIncomeForm(form) {
+    const amount = $('#amount').val().trim();
+    const date = $('#date').val().trim();
+    const category = $('#category').val().trim();
+    const comment = $('#comment').val().trim();
+    let hasError = false;
+
+    if (!amount) {
+      showError($('#amount'), $('#amountError'));
+      hasError = true;
+    } else {
+      hideError($('#amount'), $('#amountError'));
+    }
+
+    if (!date) {
+      showError($('#date'), $('#dateError'));
+      hasError = true;
+    } else {
+      hideError($('#date'), $('#dateError'));
+    }
+
+    if (!category) {
+      showError($('#category'), $('#categoryError'));
+      hasError = true;
+    } else {
+      hideError($('#category'), $('#categoryError'));
+    }
+
+    if (!hasError) {
+      $.ajax({
+        url: 'incomes.php',
+        type: 'POST',
+        data: { amount, date, category, comment },
+        dataType: 'json',
+        success: function(response) {
+          if (response.status === 'error') {
+            alert(response.message);
+          } else {
+            alert('Income has been added successfully.');
+            form[0].reset();
+          }
+        }
+      });
+    }
+  }
+
+  function validateAndSubmitExpenseForm(form) {
+    const amount = $('#amount').val().trim();
+    const date = $('#date').val().trim();
+    const category = $('#category').val().trim();
+    const paymentMethod = $('#payment_method').val().trim();
+    const comment = $('#comment').val().trim();
+    let hasError = false;
+
+    if (!amount) {
+      showError($('#amount'), $('#amountError'));
+      hasError = true;
+    } else {
+      hideError($('#amount'), $('#amountError'));
+    }
+
+    if (!date) {
+      showError($('#date'), $('#dateError'));
+      hasError = true;
+    } else {
+      hideError($('#date'), $('#dateError'));
+    }
+
+    if (!category) {
+      showError($('#category'), $('#categoryError'));
+      hasError = true;
+    } else {
+      hideError($('#category'), $('#categoryError'));
+    }
+
+    if (!paymentMethod) {
+      showError($('#payment_method'), $('#paymentMethodError'));
+      hasError = true;
+    } else {
+      hideError($('#payment_method'), $('#paymentMethodError'));
+    }
+
+    if (!hasError) {
+      $.ajax({
+        url: 'expenses.php',
+        type: 'POST',
+        data: { amount, date, category, payment_method: paymentMethod, comment },
+        dataType: 'json',
+        success: function(response) {
+          if (response.status === 'error') {
+            alert(response.message);
+          } else {
+            alert('Expense has been added successfully.');
+            form[0].reset();
+          }
+        }
+      });
+    }
+  }
 
   function validateAndSubmitForm(form, isLoginForm = false) {
     const inputs = form.find("input");
@@ -98,9 +208,6 @@ $(document).ready(function() {
         } else {
           window.location.href = 'balance.html';
         }
-      },
-      error: function() {
-        alert('An error occurred while checking the login status.');
       }
     });
   }
@@ -133,47 +240,44 @@ $(document).ready(function() {
     const period = $('#period').val();
     const startDate = $('#startDate').val();
     const endDate = $('#endDate').val();
+    let hasError = false;
 
-    if (period === 'custom' && (!startDate || !endDate)) {
-      const errorElementStart = $('#startDate').siblings(".error-text");
-      const errorElementEnd = $('#endDate').siblings(".error-text");
-      
+    if (period === 'custom') {
       if (!startDate) {
-        showError($('#startDate'), errorElementStart);
+        showError($('#startDate'), $('#startDateError'));
         hasError = true;
       } else {
-        hideError($('#startDate'), errorElementStart);
+        hideError($('#startDate'), $('#startDateError'));
       }
-      
+
       if (!endDate) {
-        showError($('#endDate'), errorElementEnd);
+        showError($('#endDate'), $('#endDateError'));
         hasError = true;
       } else {
-        hideError($('#endDate'), errorElementEnd);
+        hideError($('#endDate'), $('#endDateError'));
       }
-
-      //return;
     }
-    
 
-    $.ajax({
-      url: 'balance.php',
-      method: 'POST',
-      data: { period, startDate, endDate },
-      success: function(response) {
-        const data = JSON.parse(response);
-        if (data.error) {
-          alert(data.error);
-        } else {
-          displayBalanceResult(data);
+    if (!hasError) {
+      $.ajax({
+        url: 'balance.php',
+        method: 'POST',
+        data: { period, startDate, endDate },
+        success: function(response) {
+          const data = JSON.parse(response);
+          if (data.error) {
+            alert(data.error);
+          } else {
+            displayBalanceResult(data);
+          }
+        },
+        error: function(xhr, status, error) {
+          console.error('AJAX Error: ', error);
+          alert('An error occurred while fetching the balance.');
         }
-      },
-      error: function(xhr, status, error) {
-        console.error('AJAX Error: ', error);
-        alert('An error occurred while fetching the balance.');
-      }
-    });
-  }
+      });
+    }
+  }  
 
   function displayBalanceResult(data) {
     $('#balance').html(`Balance: ${parseFloat(data.balance).toFixed(2)} PLN`);
@@ -182,14 +286,43 @@ $(document).ready(function() {
     $('#balance-info').removeClass('d-none');
   }
 
-  $('#clear-button').on('click', function() {
-    clearBalanceForm();
-  });
-
   function clearBalanceForm() {
     $('#balance-form')[0].reset();
     $('#custom-date-range').addClass('d-none');
     $('#balance-info').addClass('d-none');
+    hideError($('#startDate'), $('#startDateError'));
+    hideError($('#endDate'), $('#endDateError'));
   }
+
+  function clearIncomeForm() {
+    $('#income-form')[0].reset();
+    hideError($('#amount'), $('#amountError'));
+    hideError($('#date'), $('#dateError'));
+    hideError($('#category'), $('#categoryError'));
+  }
+
+  function clearExpenseForm() {
+    $('#expense-form')[0].reset();
+    hideError($('#amount'), $('#amountError'));
+    hideError($('#date'), $('#dateError'));
+    hideError($('#category'), $('#categoryError'));
+    hideError($('#payment_method'), $('#paymentMethodError'));
+  }
+
+  $('#clear-button').on('click', function() {
+    clearBalanceForm();
+  });
+
+  $('#clear-income-button').on('click', function() {
+    clearIncomeForm();
+  });
+
+  $('#clear-expense-button').on('click', function() {
+    clearExpenseForm();
+  });
+
+  $('#startDate, #endDate').on('input', function() {
+    hideError($(this), $(this).siblings('.error-text'));
+  });
 
 });

@@ -29,43 +29,45 @@
         </div>
       </nav>
       
-<main class="form-signin m-auto">
-  <form class="p-3 mx-2" action="incomes.php" method="POST" >
-    <h1 class="h3 mb-3 fw-bold">Enter incomes data</h1>
-
-    <div class="form-floating my-2">
-      <input type="text" class="form-control" id="amount" placeholder="$$$" name="amount">
-      <label for="amount">Amount in PLN</label>
-    </div>
-
-    <div class="form-floating my-2">
-      <input type="date" class="form-control" id="date" name="date">
-      <label for="date">Date</label>
-    </div>
-   
-    <div class="form-floating my-2">
-      <select class="form-select" id="category" aria-label="Select Category" name="category">
-        <option value="paycheck">Paycheck</option>
-        <option value="investments">Investments</option>
-        <option value="passive-income">Passive income</option>
-        <option value="another">Another</option>
-      </select>
-      <label for="category">Income Category</label>
-    </div>
-
-    <div class="form-floating my-2">
-      <textarea class="form-control" placeholder="Leave a comment here" id="comment" name="comment"></textarea>
-      <label for="comment">Comment</label>
-    </div>
-
-    <div class="buttons d-flex justify-content-between ">
-     <button class="btn btn-secondary btn-lg custom-btn py-2" type="submit">Add</button>
-     <button class="btn btn-secondary btn-lg custom-btn py-2" type="reset">Clear</button> 
-    </div>
-  </form>
-</main>
+      <main class="form-signin m-auto">
+        <form class="p-3 mx-2" action="incomes.php" method="post" id="income-form">
+          <h1 class="h3 mb-3 fw-bold">Enter incomes data</h1>
+      
+          <div class="form-floating my-2">
+            <input type="text" class="form-control" id="amount" placeholder="$$$" name="amount">
+            <label for="amount">Amount in PLN</label>
+            <p class="error-text" id="amountError">Amount cannot be empty.</p>
+          </div>
+          <div class="form-floating my-2">
+            <input type="date" class="form-control" id="date" name="date">
+            <label for="date">Date</label>
+            <p class="error-text" id="dateError">Select the date.</p>
+          </div>
+          <div class="form-floating my-2">
+            <select class="form-select" id="category" aria-label="Select Category" name="category">
+              <option value="paycheck">Paycheck</option>
+              <option value="investments">Investments</option>
+              <option value="passive-income">Passive income</option>
+              <option value="another">Another</option>
+            </select>
+            <label for="category">Income Category</label>
+            <p class="error-text" id="categoryError"></p>
+          </div>
+          <div class="form-floating my-2">
+            <textarea class="form-control" placeholder="Leave a comment here" id="comment" name="comment"></textarea>
+            <label for="comment">Comment</label>
+          </div>
+      
+          <div class="buttons d-flex justify-content-between ">
+           <button class="btn btn-secondary btn-lg custom-btn py-2" type="submit">Add</button>
+           <button class="btn btn-secondary btn-lg custom-btn py-2" type="button" id="clear-income-button">Clear</button> 
+          </div>
+        </form>
+      </main>
+      
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="script.js"></script>
 
 </body>

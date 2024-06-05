@@ -19,14 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['first_name'] = $user['first_name'];
 
-        if ($remember_me) {
-            setcookie('user_id', $user['id'], time() + (86400 * 30), "/");
-            setcookie('user_name', $user['first_name'], time() + (86400 * 30), "/");
-        }
-
         echo json_encode(['status' => 'success']);
     } else {
-        echo json_encode(['status' => 'error', 'message' => 'Nieprawidłowy email lub hasło!']);
+        echo json_encode(['status' => 'error', 'message' => 'Wrong email or password!']);
     }
 } else {
     header('Location: signin.html');
